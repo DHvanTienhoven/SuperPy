@@ -1,0 +1,18 @@
+## Report  
+
+### introduction
+  
+I found SuperPy an incredibly difficult assignment and I struggled with the structure a lot. For me it was a process of planning, writing, discovering the structure I had planned did not work, restructuring and rewriting multiple times over. I'm pretty happy with the result, but there's also certainly room for improvement. I'd like to discuss here first an element that I think I could improve on given more time, and then two elements that I'm pretty proud of.
+
+### Single Responsibility
+
+I tried to apply the Single Responsibility principle to my program, but I think I failed at times. I like the way how handle_files.py is the only file that reads from and writes to csv- and txt-files. And dates.py is the only file that deals with datetime. I also think that the functions in those two files are relatively neat and simple and I re-use them throughout my entire program. But I had a harder time with the single responsibility principle in my sell_product.py and buy_product.py files. I feel those functions are maybe too 'clunky', and I would like to write them in a more elegant manner.
+
+### Selling from multiple records
+
+One thing I struggled with is the senario where the supermarket buys one banana every day for 5 days in a row. Then on day 6 a customer shows up and they would like to buy 4 bananas. In this scenario there's enough bananas in store, but they are stored in different inventory records with different id's and possibly different expiration dates. So how would my program handle this scenario. Because you'd have to first figure out if there are enough bananas. Then you'd have to figure out which bananas to sell, and then you have to update multiple records in your inventory and write the one sale as multiple records to your sale record, because the inventory id has to be included in the sale record.  
+The way I solved this problem is by first making a list of all the possible products (my get_possible_products() function), then sorting that list by expiration date (sort_by_expiration_date()), because you'd want to first sell the products with the nearest expiration date. Then looping through that sorted list to take out the products and breaking the loop when you've reached the desired quantity (create_sale_items()). And finally using the information I got from that to update the records. Both the inventory and the sale record.
+
+### Time Travel
+
+What gave me the most headaches was the 'time-travel' aspect of the program. At first I had made a function that dealt with expired products, and would take them out of the inventory and write them to a seperate expired products csv-file. I would use this function every time I made a sale, to make sure that expired products were not included. But then I'd realise if you'd jump ahead in time two months, almost all your current products will be expired, if you'd then made a sale, everything would be removed from the inventory. And if you then came back in time, the products would still be gone from the inventory, even though, they'd be fine at the current time. So instead of really dealing with expired products I now have condidtions in my sell-functions, but also for example the report_inventory function that will check wether a product is already in store (so the purchase_date cannot be in the future) and wether it is expired (the expiration date can't be in the past).
