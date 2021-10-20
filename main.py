@@ -3,7 +3,7 @@ from dates import advance_time
 from arguments import args
 from buy_product import buy_product
 from report_inventory import report_inventory
-from report_on_balance import report_profit, report_revenue
+from report_on_balance import report_on_balance
 from sell_product import sell_product
 
 
@@ -24,10 +24,8 @@ if args.action == "advance_time":
     advance_time(args.time)
 if args.action == "report_inventory":
     report_inventory(args.date)
-if args.action == "report_revenue":
-    report_revenue(args.date)
-if args.action == "report_profit":
-    report_profit(args.date)
+if args.action == "report_on_balance":
+    report_on_balance(report_type=args.report, date=args.date)
     
 if __name__ == '__main__':
     main()

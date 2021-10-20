@@ -9,5 +9,6 @@ parser.add_argument("--expiration", "-e", action="store", default="two_weeks_ahe
 parser.add_argument("--price", "-p", type=float, help = "specify the price of the product bought or sold")
 parser.add_argument("--quantity", "-q", action="store", default=1, type=int, help = "specify the quantity of the product bought or sold, if none is provided, the default is set to 1")
 parser.add_argument("--time", "-t", type=int, default=0, help="specify the number of days you would like to advance the program by")
+parser.add_argument("--report", "-r", type=str, default='',help="specify the type of report you'd like to recieve: options are 'revenue' or 'profit'")
 
 args = parser.parse_args()
