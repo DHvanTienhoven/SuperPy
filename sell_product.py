@@ -1,6 +1,6 @@
 from check_arguments import check_arguments
 from dates import get_valid_date
-from handle_files import add_day_to_balance, add_sale_to_record, format_prices, get_balance, get_sale_record, get_stock_items, overwrite_balance, overwrite_sale_record, overwrite_stock
+from handle_files import format_prices, get_balance, get_sale_record, get_stock_items, update_balance, update_sale_record, update_stock
 from rich.console import Console
 from style_print_statements import custom_style
 
