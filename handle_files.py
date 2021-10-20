@@ -1,7 +1,7 @@
 import csv
 
 def get_time():
-    with open('time.txt', 'r') as time_file:
+    with open('functional_files/time.txt', 'r') as time_file:
         read_time = time_file.read()
         if read_time == '':
             current_time = 0
@@ -10,7 +10,7 @@ def get_time():
     return current_time
 
 def write_to_time(new_time):
-    with open('time.txt', 'w') as time_file:
+    with open('functional_files/time.txt', 'w') as time_file:
         time_file.write(new_time)
     pass
 
