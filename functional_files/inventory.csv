@@ -3,3 +3,4 @@ id,date_of_purchase,product_name,quantity,price,expiration_date
 2,2021-10-22,apple,1,0.80,2021-11-05
 3,2021-10-21,apple,24,0.80,2021-11-05
 4,2021-11-05,apple,1,0.80,2021-11-05
+5,2021-11-03,apple,4,0.80,2021-11-03

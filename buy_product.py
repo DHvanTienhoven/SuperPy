@@ -1,5 +1,5 @@
 from check_arguments import check_arguments
-from dates import get_valid_date
+from dates import get_formatted_date, get_valid_date
 from handle_files import format_prices, get_balance, get_stock_items, update_stock, update_balance
 from rich.console import Console
 from style_print_statements import custom_style
@@ -33,6 +33,7 @@ def add_to_inventory(product_item):
         and product_item['price'] == stock_item['price']
         and product_item['product_name'] == stock_item['product_name']
         and str(product_item['expiration_date']) == stock_item['expiration_date']):
+            product_item['expiration_date'] = get_formatted_date(str(product_item['expiration_date']))
             console.print('[product_name]{product_name}[/] with expiration date {expiration_date} is already in stock, adding [positive]{quantity}[/] to quantity'.format(**product_item))
             stock_item['quantity'] = int(stock_item['quantity']) + product_item['quantity']
             update_stock(stock_items)
