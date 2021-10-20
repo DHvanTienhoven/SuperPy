@@ -18,19 +18,14 @@ def main():
 
 if args.action == "buy":
     buy_product(product_name=args.name, price=args.price, exp_date=args.expiration, quantity=args.quantity, purch_date=args.date)
-
 if args.action == "sell":
     sell_product(product_name=args.name, price=args.price, quantity=args.quantity, date=args.date)
-
 if args.action == "advance_time":
     advance_time(args.time)
-
 if args.action == "report_inventory":
     report_inventory(args.date)
-
 if args.action == "report_revenue":
     report_revenue(args.date)
-
 if args.action == "report_profit":
     report_profit(args.date)
     

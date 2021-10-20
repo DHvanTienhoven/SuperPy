@@ -1,12 +1,15 @@
 from dates import get_formatted_date, get_valid_date
 from handle_files import get_sale_record, get_stock_items
 from rich.console import Console
-
 from style_print_statements import create_inventory_table
 
 console = Console()
 
 def report_inventory(date):
+    '''
+    description: This function can be called directly from the commandline and will print a table of the current inventory. 
+    Products that are expired or have been sold on the day of the report are excluded from the report
+    '''
     date = str(get_valid_date(date))
     inventory = get_stock_items()
     sale_record = get_sale_record()
@@ -29,4 +32,3 @@ def report_inventory(date):
     console.print(f'The inventory on {formatted_date} is:', style="bold underline")
     console.print(inventory_table)
     pass
-
