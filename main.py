@@ -24,7 +24,7 @@ if args.action == "advance_time":
     advance_time(args.time)
 if args.action == "report_inventory":
     report_inventory(args.date)
-if args.action == "report_on_balance":
+if args.action == "balance_report":
     report_on_balance(report_type=args.report, date=args.date)
     
 if __name__ == '__main__':

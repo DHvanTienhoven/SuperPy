@@ -1,5 +1,5 @@
 from dates import get_formatted_date, get_valid_date
-from handle_files import get_sale_record, get_stock_items
+from handle_files import get_record 
 from rich.console import Console
 from style_print_statements import create_inventory_table
 
@@ -11,8 +11,8 @@ def report_inventory(date):
     Products that are expired or have been sold on the day of the report are excluded from the report
     '''
     date = str(get_valid_date(date))
-    inventory = get_stock_items()
-    sale_record = get_sale_record()
+    inventory = get_record('inventory')
+    sale_record = get_record('sale_record')
     current_inventory = []
     sold_items = {}
     for item in sale_record:

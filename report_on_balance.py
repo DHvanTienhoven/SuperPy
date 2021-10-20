@@ -1,5 +1,5 @@
 from dates import get_formatted_date, get_valid_date_report
-from handle_files import format_prices, get_balance
+from handle_files import format_prices, get_record
 from rich.console import Console
 from style_print_statements import custom_style
 
@@ -9,7 +9,7 @@ def report_on_balance(report_type, date):
     '''
     Description: this function can be called on from the command_line and will report the profit or the revenue on a given day, depending on the report_type
     '''
-    balance = get_balance()
+    balance = get_record('balance')
     date = str(get_valid_date_report(date))
     formatted_date = get_formatted_date(date)
     relevant_days = []

@@ -1,3 +1,4 @@
 id,date_of_purchase,product_name,quantity,price,expiration_date
-1,2021-10-20,giraffe,11,34.82,2021-11-03
+1,2021-10-20,giraffe,0,34.82,2021-11-03
 2,2021-10-20,coffee,9997,0.43,2021-11-03
+3,2021-10-21,coffee,14,0.43,2021-11-03

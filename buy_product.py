@@ -1,6 +1,6 @@
 from check_arguments import check_arguments
 from dates import get_formatted_date, get_valid_date
-from handle_files import format_prices, get_balance, get_stock_items, update_stock, update_balance
+from handle_files import format_prices, get_record, update_record
 from rich.console import Console
 from style_print_statements import custom_style
 
@@ -11,14 +11,14 @@ def add_to_balance(balance_day):
     Description: this function will add the total cost for a purchased product to the balance
     '''
     balance_day['cost'], balance_day['revenue'] = format_prices(balance_day['cost']), format_prices(balance_day['revenue'])
-    balance_per_day = get_balance()
+    balance_per_day = get_record('balance')
     for day in balance_per_day:
         if balance_day['date'] == day['date']:
             day['cost'] = format_prices(float(day['cost']) + float(balance_day['cost']))
-            update_balance(balance_per_day)
+            update_record('balance', balance_per_day)
             return
     balance_per_day.append(balance_day)
-    update_balance(balance_per_day)
+    update_record('balance', balance_per_day)
     pass
 
 
@@ -27,7 +27,7 @@ def add_to_inventory(product_item):
     Description: this function will add a bought product to the inventory of the supermarket
     '''
     product_item['price'] = format_prices(product_item['price'])
-    stock_items = get_stock_items()
+    stock_items = get_record('inventory')
     for stock_item in stock_items:
         if (str(product_item['date_of_purchase']) == stock_item['date_of_purchase']
         and product_item['price'] == stock_item['price']
@@ -36,13 +36,13 @@ def add_to_inventory(product_item):
             product_item['expiration_date'] = get_formatted_date(str(product_item['expiration_date']))
             console.print('[product_name]{product_name}[/] with expiration date {expiration_date} is already in stock, adding [positive]{quantity}[/] to quantity'.format(**product_item))
             stock_item['quantity'] = int(stock_item['quantity']) + product_item['quantity']
-            update_stock(stock_items)
+            update_record('inventory', stock_items)
             return 
     console.print('buying [product_name]{product_name}[/]'.format(**product_item))
     num_stock_items = len(stock_items)
     product_item['id'] = num_stock_items + 1
     stock_items.append(product_item)
-    update_stock(stock_items)
+    update_record('inventory', stock_items)
     pass
 
 
