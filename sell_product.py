@@ -7,6 +7,9 @@ from style_print_statements import custom_style
 console = Console(theme=custom_style)
 
 def update_inventory_sale(sale_items):
+    '''
+    Description: this function is called on when a sale is made and will remove the sold products from the inventory
+    '''
     items_dict = {}
     for item in sale_items:
         items_dict[item['inventory_id']]= item['quantity']
@@ -14,19 +17,23 @@ def update_inventory_sale(sale_items):
     for item in stock_items:
         if item['id'] in items_dict:
             item['quantity'] = int(item['quantity']) - int(items_dict[item['id']])
-    overwrite_stock(stock_items)
+    update_stock(stock_items)
     pass
 
-def update_sale_record(sale_items):
+def add_to_sale_record(sale_items):
+    '''
+    Description: this function will add the sold items to the sale record
+    '''
     sale_record = get_sale_record()
-    if len(sale_record) == 0:
-        overwrite_sale_record(sale_items)
-    else:
-        for item in sale_items:
-            add_sale_to_record(item)
+    for item in sale_items:
+        sale_record.append(item)
+    update_sale_record(sale_record)
     pass
 
-def update_balance_sale(price, quantity, sale_date):
+def add_sale_to_balance(price, quantity, sale_date):
+    '''
+    Description: this function will add the revenue to the balance when products are sold
+    '''
     balance_day ={
         'date': sale_date,
         'cost': 0,
@@ -37,16 +44,16 @@ def update_balance_sale(price, quantity, sale_date):
     for day in balance_per_day:
         if balance_day['date'] == day['date']:
             day['revenue'] = format_prices(float(day['revenue']) + float(balance_day['revenue']))
-            overwrite_balance(balance_per_day)
-            return None
-    if len(balance_per_day) == 0:
-        balance_per_day.append(balance_day)
-        overwrite_balance(balance_per_day)
-    else:
-        add_day_to_balance(balance_day)
+            update_balance(balance_per_day)
+            return
+    balance_per_day.append(balance_day)
+    update_balance(balance_per_day)
     pass
 
 def get_possible_products(product_name, date):
+    '''
+    Description: this function will filter through the inventory and return a list of possible products to sell
+    '''
     stock_items = get_stock_items()
     possible_products = []
     for item in stock_items:
@@ -55,15 +62,24 @@ def get_possible_products(product_name, date):
     return possible_products
 
 def check_quantity(products):
+    '''
+    Description: this function checks how many of the desired item are currently in stock
+    '''
     quantity_in_stock = 0
     for product in products:
         quantity_in_stock += int(product['quantity'])
     return quantity_in_stock
 
 def sort_by_expiration_date(products):
+    '''
+    Description: this function sorts the items that can be sold by expiration date in order to sell the items that expire first before the others.
+    '''
     return sorted(products, key=lambda l: l['expiration_date'])
 
 def create_sale_items(products, quantity, price, date):
+    '''
+    Description: this function creates a list of one or more dictionaries for the items that will be sold
+    '''
     sale_items = []
     sold_quantity = 0
     for product in products:
@@ -94,12 +110,18 @@ def create_sale_items(products, quantity, price, date):
     return sale_items
 
 def add_id_to_items(sale_items):
+    '''
+    Description: this function will add an id to the sale items
+    '''
     sale_record = get_sale_record()
     for i, record in enumerate(sale_items):
         record['id'] = len(sale_record) + 1 + i
     return sale_items
 
 def sell_product(product_name, price, quantity, date):
+    '''
+    Description: this function can be called on from the command line and handles the sale of a product
+    '''
     check_arguments(product_name, price)
     sale_date = str(get_valid_date(date))
     possible_products = get_possible_products(product_name, sale_date)
@@ -114,7 +136,7 @@ def sell_product(product_name, price, quantity, date):
             sorted_products = sort_by_expiration_date(possible_products)
             sale_items = create_sale_items(sorted_products, quantity, price, sale_date)
             add_id_to_items(sale_items)
-            update_sale_record(sale_items)
+            add_to_sale_record(sale_items)
             update_inventory_sale(sale_items)
-            update_balance_sale(price, quantity, sale_date)
+            add_sale_to_balance(price, quantity, sale_date)
     pass

@@ -1,0 +1,5 @@
+id,product_name,inventory_id,price,quantity,sale_date
+1,coffee,2,5.60,3,2021-10-20
+2,giraffe,1,90.00,3,2021-10-20
+3,giraffe,1,90.00,3,2021-10-21
+4,giraffe,1,90.00,3,2021-11-02
