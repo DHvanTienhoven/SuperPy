@@ -8,8 +8,10 @@ SuperPy is a program designed to keep track of the inventory and sales of a Supe
  *sell  
  *report inventory  
  *report revenue  
- *report profit  
+ *balance report    
  *advance time  
+ *report on product  
+ *expiration report  
 
 In this manual I will discuss each of the actions.
 
@@ -86,49 +88,64 @@ or:
 
 The program will print a table with the names of all the products in store, the count of that product, the price that it was bought for and the expiration date. It will show the inventory of the store at the end of the given day.  
 
-### Report Revenue
+### Report on balance
 
-If you want to see the revenue of the supermarket for a given period you can use the command
+If you want to see the revenue or the profit of the supermarket for a given period you can use the command
 
-> python main.py report_revenue
+> python main.py balance_report
 
-You can see the revenue for either a given day or a calendar month or a calendar year. You can specify the period of the report with the --date/-d flag. If no date is given the default is today. If you would like to see the revenue for a given calendar year provide the date as YYYY, if you'd like to see a calendar month, provide the date as YYYY-MM and if you'd like to see the revenue for one day provide the date as YYYY-MM-DD or it can be one of the following: two_weeks_ago, one_week_ago, day_before_yesterday, yesterday, today, tomorrow, day_after_tomorrow, next_week, two_weeks_ahead.  
+You'll have to specify what type of report you'd like to receive with the --report or -r flag. The options are: 'revenue' or 'profit'.  
 
-For example:
-
-> python main.py report_revenue --date tomorrow
-
-or:
-
-> python main.py report_revenue --date 2019-08
-
-or:
-
-> python main.py report_revenue -d 2021
-
-The program will print the revenue for the given time period.  
-
-### Report Profit
-
-If you want to see the profit of the supermarket for a given period you can use the command
-
-> python main.py report_profit
-
-You can see the profit for either a given day or a calendar month or a calendar year. You can specify the period of the report with the --date/-d flag. If no date is given the default is today. If you would like to see the profit for a given calendar year provide the date as YYYY, if you'd like to see a calendar month, provide the date as YYYY-MM and if you'd like to see the profit for one day provide the date as YYYY-MM-DD or it can be one of the following: two_weeks_ago, one_week_ago, day_before_yesterday, yesterday, today, tomorrow, day_after_tomorrow, next_week, two_weeks_ahead.  
+You can see the revenue or profit for either a given day or a calendar month or a calendar year. You can specify the period of the report with the --date/-d flag. If no date is given the default is today. If you would like to see the revenue or profit for a given calendar year provide the date as YYYY, if you'd like to see a calendar month, provide the date as YYYY-MM and if you'd like to see the revenue or profit for one day provide the date as YYYY-MM-DD or it can be one of the following: two_weeks_ago, one_week_ago, day_before_yesterday, yesterday, today, tomorrow, day_after_tomorrow, next_week, two_weeks_ahead.  
 
 For example:
 
-> python main.py report_profit --date day_before_yesterday
+> python main.py balance_report --report revenue --date tomorrow
 
 or:
 
-> python main.py report_profit --date 2020-03
+> python main.py balance_report -r profit --date 2019-08
 
 or:
 
-> python main.py report_profit -d 2022
+> python main.py balance_report -r revenue -d 2021
 
-The program will print the profit for the given time period.  
+The program will print the revenue or profit. for the given time period.  
+
+### Report on product.  
+
+If you would like to receive a report on a given product on a given date you can use the command:  
+
+> python main.py report_on_product
+
+you'll have to specify the product name with the --name or -n flag. You can also provide a date with the --date or -d flag. The date must be provided in the YYYY-MM-DD format or can one of the following: two_weeks_ago, one_week_ago, day_before_yesterday, yesterday, today, tomorrow, day_after_tomorrow, next_week, two_weeks_ahead. If no date is given the default is set to today. for example:  
+
+> python main.py report_on_product --name chocolate  
+
+or:  
+
+> python main.py report_on_product --n chocolate -d tomorrow  
+  
+  or:  
+    
+> python main.py report_on_product --n chocolate -d 2020-08-17  
+
+The program will then generate a csv-file which will show you how many items of that product were in store, how many were sold and how many were expired on the given date, and will store it in the reports directory.  
+  
+
+### Report Expired  
+  
+If you would like to recieve a report on the expired products on a given date you can use:  
+
+> python main.py report_expired
+  
+You can also provide a date with the --date or -d flag. The date must be provided in the YYYY-MM-DD format or can one of the following: two_weeks_ago, one_week_ago, day_before_yesterday, yesterday, today, tomorrow, day_after_tomorrow, next_week, two_weeks_ahead. If no date is given the default is set to today. for example:  
+  
+> python main.py report_expired --date two_weeks_ahead
+  
+> python main.py report_expired -d 2021-11-01
+
+The program will then generate a csv-file which will show you how many items were in store on the given date that were expired on the given date, it will also show the 'lost cost': the price payed for the product that will not be earned back, and will store it in the reports directory.  
 
 ### Advance Time 
 

@@ -2,6 +2,8 @@
 from dates import advance_time
 from arguments import args
 from buy_product import buy_product
+from product_report import report_on_product
+from report_expired_products import report_expired
 from report_inventory import report_inventory
 from report_on_balance import report_on_balance
 from sell_product import sell_product
@@ -26,6 +28,10 @@ if args.action == "report_inventory":
     report_inventory(args.date)
 if args.action == "balance_report":
     report_on_balance(report_type=args.report, date=args.date)
-    
+if args.action == "report_expired":
+    report_expired(args.date)
+if args.action == "report_on_product":
+    report_on_product(product_name = args.name, date = args.date )
+
 if __name__ == '__main__':
     main()

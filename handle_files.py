@@ -28,7 +28,7 @@ def format_prices(price):
 
 def get_record(file_name):
     '''
-    Description: this function will read date from a csv file
+    Description: this function will read data from a csv file
     '''
     with open(f'functional_files/{file_name}.csv', mode='r') as file:
         record = list(csv.DictReader(file))
@@ -38,7 +38,7 @@ def update_record(file_name, new_list):
     '''
     Description: this function will update a record in a csv file or create one if none is present
     '''
-    with open(f'functional_files/{file_name}.csv', mode='w', newline = '') as file: 
+    with open(f'{file_name}.csv', mode='w', newline = '') as file: 
         file_writer = csv.DictWriter(file, fieldnames=new_list[0].keys())
         file_writer.writeheader()
         file_writer.writerows(new_list)

@@ -17,7 +17,7 @@ def update_inventory_sale(sale_items):
     for item in stock_items:
         if item['id'] in items_dict:
             item['quantity'] = int(item['quantity']) - int(items_dict[item['id']])
-    update_record('inventory', stock_items)
+    update_record('functional_files/inventory', stock_items)
     pass
 
 def add_to_sale_record(sale_items):
@@ -27,7 +27,7 @@ def add_to_sale_record(sale_items):
     sale_record = get_record('sale_record')
     for item in sale_items:
         sale_record.append(item)
-    update_record('sale_record', sale_record)
+    update_record('functional_files/sale_record', sale_record)
     pass
 
 def add_sale_to_balance(price, quantity, sale_date):
@@ -44,10 +44,10 @@ def add_sale_to_balance(price, quantity, sale_date):
     for day in balance_per_day:
         if balance_day['date'] == day['date']:
             day['revenue'] = format_prices(float(day['revenue']) + float(balance_day['revenue']))
-            update_record('balance', balance_per_day)
+            update_record('functional_files/balance', balance_per_day)
             return
     balance_per_day.append(balance_day)
-    update_record('balance', balance_per_day)
+    update_record('functional_files/balance', balance_per_day)
     pass
 
 def get_possible_products(product_name, date):

@@ -15,10 +15,10 @@ def add_to_balance(balance_day):
     for day in balance_per_day:
         if balance_day['date'] == day['date']:
             day['cost'] = format_prices(float(day['cost']) + float(balance_day['cost']))
-            update_record('balance', balance_per_day)
+            update_record('functional_files/balance', balance_per_day)
             return
     balance_per_day.append(balance_day)
-    update_record('balance', balance_per_day)
+    update_record('functional_files/balance', balance_per_day)
     pass
 
 
@@ -36,13 +36,13 @@ def add_to_inventory(product_item):
             product_item['expiration_date'] = get_formatted_date(str(product_item['expiration_date']))
             console.print('[product_name]{product_name}[/] with expiration date {expiration_date} is already in stock, adding [positive]{quantity}[/] to quantity'.format(**product_item))
             stock_item['quantity'] = int(stock_item['quantity']) + product_item['quantity']
-            update_record('inventory', stock_items)
+            update_record('functional_files/inventory', stock_items)
             return 
     console.print('buying [product_name]{product_name}[/]'.format(**product_item))
     num_stock_items = len(stock_items)
     product_item['id'] = num_stock_items + 1
     stock_items.append(product_item)
-    update_record('inventory', stock_items)
+    update_record('functional_files/inventory', stock_items)
     pass
 
 
